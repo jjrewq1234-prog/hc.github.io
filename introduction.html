@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이희창 - 자기소개</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', sans-serif;
+            line-height: 1.7;
+            color: #e9ecef;
+            background: #1a1a1a;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 헤더 섹션 */
+        header {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1f1f1f 100%);
+            color: #e9ecef;
+            padding: 60px 40px 50px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid #404040;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+        }
+
+        .profile-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-photo-wrapper {
+            position: relative;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #2d2d2d;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .profile-photo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .profile-photo-wrapper:hover::before {
+            opacity: 0.5;
+        }
+
+        .profile-photo-wrapper:hover .profile-photo {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 12px;
+            font-weight: 700;
+            color: #ffffff;
+            animation: fadeInDown 1s ease-out 0.2s both;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #b0b0b0;
+            margin-bottom: 8px;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .subtitle:nth-of-type(2) {
+            margin-bottom: 40px;
+            color: #818cf8;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #3d3d3d;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            color: #e9ecef;
+            font-size: 0.95em;
+            border: 1px solid #404040;
+        }
+
+        .contact-item:hover {
+            background: #4d4d4d;
+            border-color: #6366f1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* 네비게이션 */
+        nav {
+            background: #252525;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #404040;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: 16px 24px;
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #818cf8;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 60%;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            background: #3d3d3d;
+        }
+
+        nav a.active {
+            color: #818cf8;
+        }
+
+        /* 섹션 공통 스타일 */
+        section {
+            padding: 80px 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            background: #2d2d2d;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:nth-child(even) {
+            background: #252525;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 40px;
+            color: #ffffff;
+            position: relative;
+            padding-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #818cf8, #a78bfa);
+            border-radius: 2px;
+        }
+
+        /* 카드 스타일 */
+        .card {
+            background: #3d3d3d;
+            border-radius: 6px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            border: 1px solid #404040;
+            position: relative;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+            border-color: #6366f1;
+            background: #454545;
+        }
+
+        .card h3 {
+            color: #ffffff;
+            font-size: 1.3em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .card-content {
+            color: #d0d0d0;
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+
+        .card-content p {
+            margin-bottom: 12px;
+        }
+
+        /* 경력 타임라인 */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #404040;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #818cf8;
+            border: 3px solid #2d2d2d;
+            box-shadow: 0 0 0 2px #404040;
+        }
+
+        .timeline-date {
+            color: #818cf8;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .timeline-content {
+            background: #3d3d3d;
+            padding: 24px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #404040;
+            transition: all 0.2s ease;
+        }
+
+        .timeline-content:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            border-color: #6366f1;
+            background: #454545;
+        }
+
+        .timeline-content h4 {
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .timeline-content p {
+            color: #d0d0d0;
+            margin: 6px 0;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* 스킬 바 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .skill-item {
+            background: #3d3d3d;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #404040;
+            transition: all 0.2s ease;
+        }
+
+        .skill-item:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            border-color: #6366f1;
+            background: #454545;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+            font-size: 0.95em;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: #2d2d2d;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #818cf8, #a78bfa);
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        /* 버튼 스타일 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #818cf8;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(129, 140, 248, 0.4);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #6366f1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(129, 140, 248, 0.6);
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .profile-photo-wrapper {
+                margin-bottom: 25px;
+            }
+
+            .profile-photo {
+                width: 150px;
+                height: 150px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav a {
+                padding: 15px;
+            }
+
+            section {
+                padding: 40px 20px;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 60px 20px 40px;
+            }
+        }
+
+        /* 하이라이트 */
+        .highlight {
+            background: #92400e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #fef3c7;
+        }
+
+        /* 스크롤 인디케이터 */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #818cf8, #a78bfa, #ec4899);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* 리스트 스타일 */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+
+        ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #818cf8;
+            font-weight: bold;
+        }
+
+        .timeline-content ul {
+            margin-top: 12px;
+        }
+
+        .timeline-content ul li {
+            color: #d0d0d0;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    
+    <div class="container">
+        <header>
+            <div class="profile-content">
+                <div class="profile-photo-wrapper">
+                    <img src="증명사진_이희창.jpg" alt="이희창 프로필 사진" class="profile-photo">
+                </div>
+                <h1>이희창</h1>
+                <div class="subtitle">HeeChang Lee (李熙昌)</div>
+                <div class="subtitle">교육 콘텐츠 전문 편집자</div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span style="font-size: 1.1em;">✉️</span>
+                        <span>hclee9@kakao.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span style="font-size: 1.1em;">📱</span>
+                        <span>010-2618-6596</span>
+                    </div>
+                    <div class="contact-item">
+                        <span style="font-size: 1.1em;">📍</span>
+                        <span>경기 고양시 일산동구</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#about" class="nav-link">소개</a></li>
+                <li><a href="#education" class="nav-link">학력</a></li>
+                <li><a href="#career" class="nav-link">경력</a></li>
+                <li><a href="#skills" class="nav-link">역량</a></li>
+                <li><a href="#philosophy" class="nav-link">가치관</a></li>
+                <li><a href="#portfolio" class="nav-link">포트폴리오</a></li>
+            </ul>
+        </nav>
+
+        <section id="about" class="section">
+            <h2>안녕하세요, 이희창입니다!</h2>
+            <div class="card">
+                <div class="card-content">
+                    <p style="font-size: 1.05em; margin-bottom: 20px; color: #ffffff; font-weight: 500;">
+                        교육 및 IT 분야 전문 콘텐츠 편집 경력 <span class="highlight">4년 7개월</span>을 보유한 편집자입니다.
+                    </p>
+                    <p>
+                        통계, 수학, 인공지능, 데이터 과학 등의 이해도를 바탕으로, 교과서 및 단행본 편집, 집필진 관리, 
+                        전자저작물 개발, 학습자료 기획 등 전방위적 편집 업무를 수행해왔습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section">
+            <h2>학력</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2014.03 - 2021.02 (졸업)</div>
+                    <div class="timeline-content">
+                        <h4>동국대학교</h4>
+                        <p><strong>응용통계학과 / 주간</strong></p>
+                        <p>학점: 3.81 / 4.5</p>
+                        <p>졸업 논문: 전자책의 느린 성장률에 대한 원인 분석</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2011.03 - 2013.02 (졸업)</div>
+                    <div class="timeline-content">
+                        <h4>세원고등학교</h4>
+                        <p><strong>이과계열</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="career" class="section">
+            <h2>경력</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2022.04 - 2025.02 (2년 11개월)</div>
+                    <div class="timeline-content">
+                        <h4>(주)와이비엠 | 편집2국 정보과·실과·초등수학콘텐츠과</h4>
+                        <p><strong>직급:</strong> 대리 | <strong>연봉:</strong> 3,850만원 | <strong>근무지:</strong> 서울특별시</p>
+                        <p><strong>주요 업무:</strong></p>
+                        <ul>
+                            <li>2022 개정 교육과정 기반 중·고등 정보, 데이터 과학, 인공지능 기초 교과서 개발 참여</li>
+                            <li>고등학교 데이터 과학 교과서 메인 편집 및 PT, 교수학습자료, 전자저작물 기획</li>
+                            <li>고등학교 정보, 인공지능 기초, 중학교 정보: 서브 편집 및 저자 관리</li>
+                            <li>초등학교 실과(5-6학년군) 정보 단원 메인 편집</li>
+                            <li>2022 개정 교육과정 초등학교 수학(5~6학년군), 중·고등학교 정보 교과 AIDT 개발 참여</li>
+                            <li>학교 현장 연계 콘텐츠 기획: 『Brightics Studio와 함께 배우는 데이터 과학』 기획 편집</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021.01 - 2022.04 (1년 4개월)</div>
+                    <div class="timeline-content">
+                        <h4>자유아카데미 | 편집부 통계학 서적 편집자</h4>
+                        <p><strong>직급:</strong> 사원 | <strong>연봉:</strong> 3,000만원 | <strong>근무지:</strong> 경기도</p>
+                        <p><strong>주요 업무:</strong></p>
+                        <ul>
+                            <li>통계학, 수학, AI/딥러닝 관련 전공서적 다수 책임 편집</li>
+                            <li>출판 계약서 관리 및 인쇄 검수</li>
+                            <li>IT 및 인공지능 관련 영문 원서 한글화 및 번역본 검수</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2020.09 - 2020.12 (인턴)</div>
+                    <div class="timeline-content">
+                        <h4>효성ITX(주) | IT 지원</h4>
+                        <p><strong>주요 업무:</strong> 한국정보화진흥원 공공데이터 청년인턴으로 경상북도 경주시 한국수력원자력 본사에서 공공데이터 관련 데이터 개방, 품질 진단 등의 업무 수행</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <h2>보유 역량 및 기술 스택</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-name">Python</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">R</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">SAS / SPSS</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">LaTeX</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">MS Office 365</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">한컴오피스</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 30px;">
+                <h3>자격증</h3>
+                <div class="card-content">
+                    <p><strong>ADsP (데이터분석 준전문가)</strong> - 2020.07, 한국데이터산업진흥원</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="philosophy" class="section">
+            <h2>함께 달리기 위해 노력하는 지원자</h2>
+            
+            <div class="card">
+                <h3>💪 도전하는 자세</h3>
+                <div class="card-content">
+                    <p>
+                        주변 사람들에게 많이 들은 표현이며, 또한 저를 표현할 수 있는 단어이기도 합니다. 
+                        대학생 때 전문 교과를 공부하면서 생긴 '대학 교재'에 대한 관심은 저의 졸업 논문에도 영향을 주게 되었습니다. 
+                        이러한 관심은 저의 첫 직장을 선택할 때, 많은 영향을 주어 통계학 교재 전문 출판사로 취업하게 되는 계기가 되었습니다.
+                    </p>
+                    <p style="margin-top: 15px;">
+                        복학 이후 1학년 때 받았던 낮은 성적은 나의 태도가 바뀌지 않으면 뒤처질 것이라는 위기 의식이 생겨 
+                        2, 3학년 때의 성적을 50%씩 향상시키는 목표를 세워 이를 달성하였고, 성적이 오르며 생긴 자신감을 바탕으로 
+                        학과 학생회 임원, 통계 분석 외주 작업, 또래 상담 활동 등 다양한 외부 활동에도 도전하는 계기가 되었습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📝 기록하는 습관</h3>
+                <div class="card-content">
+                    <p>
+                        직장 생활에 있어 저의 장점은 '기록'입니다. 교과서 편집은 흐름이 중요하다는 직장 선배님의 조언을 받은 이후 
+                        업무 시간과 일상에서 느낀 사소한 감정부터 다양한 경험까지 기록하는 습관을 들였습니다.
+                    </p>
+                    <p style="margin-top: 15px;">
+                        2022 개정 교육과정 고등학교 데이터 과학 교과서를 책임 편집할 때는 기획부터 제출 단계까지 그동안 있었던 
+                        작업 단계를 간단히 정리한 자료를 만들어 둔 덕분에 바로 다음 해 초등학교 실과 교과서를 시작할 때, 
+                        중간에 작업에 투입되었음에도 흐름을 놓치지 않고 교과서 작업에 바로 투입될 수 있었습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📚 교육과 책</h3>
+                <div class="card-content">
+                    <p>
+                        제가 교과서 출판사를 선택한 이유는, 저의 성장 과정과 경험이 자연스럽게 이 분야와 연결되어 있기 때문입니다. 
+                        별다른 취미 없던 평범한 중학생 시절 도서 동아리 활동을 하며 시작했던 독서가 계기가 되어 독서는 제게 있어 큰 즐거움이 되었습니다.
+                    </p>
+                    <p style="margin-top: 15px;">
+                        교과서는 단순한 지식 전달의 매체가 아닌 학생들이 사고하고 성장하는 데 직접 영향을 주는 도구라 생각하여 
+                        제 경험과 역량을 바탕으로, 학생들에게 더 나은 학습 경험을 제공하고, 교육 현장에 도움을 주고 싶어 선택하게 되었습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>✨ 항상 긍정적으로</h3>
+                <div class="card-content">
+                    <p>
+                        인생의 좌우명은 무슨 일이든 긍정적으로 받아들이는 것입니다. 같은 일을 하더라도 긍정적으로 받아들이고 생각하면 
+                        어려운 일이라도 그 마음으로 주어진 일에 대해서 좀 더 빨리 진행하고 끝낼 수 있습니다.
+                    </p>
+                    <p style="margin-top: 15px;">
+                        새로운 일을 접하게 되었을 때도 경험하지 못한 것을 경험하고 그 일을 통해 자기 개발하여 새로운 도전을 할 수 있게 된다고 
+                        긍정적으로 생각하기 때문입니다. 이러한 긍정적인 성격 덕분에 인간관계도 좋다는 평을 많이 받았습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚡ 신속한 업무 처리</h3>
+                <div class="card-content">
+                    <p>
+                        해당 업무에 핵심을 파악하고 신속하게 업무 처리를 하는 것이 저의 장점입니다. 
+                        (주)한국수력원자력 IT 지원부에서 6개월 동안 인턴 활동을 하며 기업 내에 존재하는 공공데이터 개방, 품질 진단 등의 업무를 수행하였습니다.
+                    </p>
+                    <p style="margin-top: 15px;">
+                        일주일이라는 짧은 교육을 받고 바로 업무로 투입되어 주어진 틀에 맞추어 데이터를 정제 및 가공하였고, 
+                        데이터 개방과 관련된 민원을 처리하였습니다. 어떠한 업무도 빠르게 적응할 수 있다는 자신감을 심어준 좋은 경험이었습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section">
+            <h2>포트폴리오</h2>
+            <div class="card">
+                <h3>주요 프로젝트 및 성과</h3>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>2022 개정 고등학교 『데이터 과학』 메인 편집 및 기획</strong>
+                            <br><span style="color: #d0d0d0; font-size: 0.9em;">집필 및 검토 단계에서 학습 흐름 관리 문서를 자체 구축하여 팀 내 작업 효율화</span></li>
+                        <li><strong>초등 실과 교과서 중간 투입</strong>
+                            <br><span style="color: #d0d0d0; font-size: 0.9em;">빠른 적응력으로 전체 일정 준수</span></li>
+                        <li><strong>『Brightics Studio 활용서』 기획 및 출간</strong>
+                            <br><span style="color: #d0d0d0; font-size: 0.9em;">학교 현장 연계 콘텐츠로 활용성 높음</span></li>
+                        <li><strong>정보·수학 교과 AIDT 기획 및 제작 참여</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://www.notion.so/PORTFOLIO-40df4c73664545f799abdfd4c2bfc5b3?pvs=4" 
+                   target="_blank" 
+                   class="btn">
+                    <span>📁</span>
+                    <span>포트폴리오 보기</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 스크롤 인디케이터
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.getElementById('scrollIndicator').style.width = scrollPercent + '%';
+        });
+
+        // 섹션 페이드인 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 네비게이션 스무스 스크롤
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 현재 활성 섹션 하이라이트
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navHeight = document.querySelector('nav').offsetHeight;
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - navHeight - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 스킬 바 애니메이션
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target.querySelector('.skill-progress');
+                    const width = progressBar.style.width;
+                    progressBar.style.width = '0%';
+                    setTimeout(() => {
+                        progressBar.style.width = width;
+                    }, 100);
+                    skillObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.skill-item').forEach(item => {
+            skillObserver.observe(item);
+        });
+    </script>
+</body>
+</html>
